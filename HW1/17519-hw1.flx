@@ -1,0 +1,42 @@
+%{
+    int line_no = 1;
+%}
+%x str_beg
+tTIME (([0-1]?[0-9])|2[0-3]):[0-5][0-9]
+tNUM [0-9]+
+%%
+["'] BEGIN(str_beg);
+<str_beg>["'] BEGIN(INITIAL);
+<str_beg>[^"']+ printf("%d tSTRING (%s)\n",line_no,yytext);
+\n line_no++;
+{tTIME} printf("%d tTIME (%s)\n",line_no,yytext);
+{tNUM} printf("%d tNUM (%s)\n",line_no,yytext);
+end= printf("%d tEND_A\n",line_no);
+course printf("%d tCOURSE\n",line_no);
+type= printf("%d tTYPE\n",line_no);
+meeting printf("%d tMEETING\n",line_no);
+item printf("%d tITEM\n",line_no);
+code= printf("%d tCODE\n",line_no);
+start= printf("%d tSTART\n",line_no);
+section= printf("%d tSECTION\n",line_no);
+day= printf("%d tDAY\n",line_no);
+class printf("%d tCLASS\n",line_no);
+name= printf("%d tNAME\n",line_no);
+constraint printf("%d tCONSTRAINT\n",line_no);
+instructor= printf("%d tINSTRUCTOR\n",line_no);
+crn= printf("%d tCRN\n",line_no);
+capacity= printf("%d tCAPACITY\n",line_no);
+\> printf("%d tCLOSE\n",line_no);
+\/\> printf("%d tSELF\n",line_no);
+\<\/ printf("%d tEND\n",line_no);
+\< printf("%d tOPEN\n",line_no);
+M printf("%d tMON\n",line_no);
+T printf("%d tTUE\n",line_no);
+W printf("%d tWED\n",line_no);
+R printf("%d tTHU\n",line_no);
+F printf("%d tFRI\n",line_no);
+.
+%%
+main() {
+  yylex();
+}

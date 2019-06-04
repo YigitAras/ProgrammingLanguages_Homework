@@ -1,0 +1,23 @@
+<course code="CS305" name='Programming Languages' type="Lecture">
+<class section="0" instructor='Husnu Yenigun' crn=20258>
+<meeting start=08:40 end=10:30/>
+<meeting start=08:40 start=09:30 day=F/>
+</class>
+<class section="0" instructor='Husnu Yenigun' crn=20258 crn=1>
+<meeting day=R start=08:40 end=10:30/>
+<meeting start=08:40 end=09:30 day=F/>
+</class>
+</course>
+<course code="CS301R" name="Algorithms-Recitation" type="Recitation">
+<class section="0" instructor='Husnu Yenigun' crn=20257 capacity=1>
+<meeting start=17:40 day=M end=18:30/>
+</class>
+</course>
+<constraint>
+<item code="CS3055"/>
+<item crn=202577/>
+</constraint>
+<constraint>
+<item code="CS301R"/>
+<item crn=20258/>
+</constraint> 

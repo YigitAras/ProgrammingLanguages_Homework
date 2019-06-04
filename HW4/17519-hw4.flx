@@ -1,0 +1,76 @@
+%{
+#include <stdio.h>
+#include <string.h>
+#include "17519-hw4.h"
+#include "17519-hw4.tab.h"
+int noOfLine = 1;
+%}
+
+
+DIGIT    [0-9]
+%%
+\n noOfLine++;
+[/][>] return tSELF;
+[<] return tOPEN;
+[<][/] return tEND;
+course {yylval.values.line_num = noOfLine;return tCOURSE;}
+meeting {yylval.values.line_num = noOfLine;return tMEETING;}
+item return tITEM;
+code= return tCODE;
+type= return tTYPE;
+section= return tSECTION;
+start= return tSTART;
+day= return tDAY;
+M {
+    strcpy(yylval.values.name_str,yytext);
+    return tMON;
+  };
+T {
+    strcpy(yylval.values.name_str,yytext);
+    return tTUE;
+  };
+R {
+    strcpy(yylval.values.name_str,yytext);
+    return tTHU;
+  };
+[>] return tCLOSE;
+class {yylval.values.line_num = noOfLine;return tCLASS;}
+constraint {yylval.values.line_num = noOfLine;return tCONSTRAINT;}
+name= return tNAME;
+instructor= return tINSTRUCTOR;
+crn= return tCRN;
+capacity= return tCAPACITY;
+end= return tEND_A;
+'[^']*' {
+          strcpy(yylval.values.name_str,yytext);
+          yylval.values.line_num = noOfLine;
+          return tSTRING;
+        }
+["][^"]*["] {
+              strcpy(yylval.values.name_str,yytext);
+              yylval.values.line_num = noOfLine;
+              return tSTRING;
+            }
+
+{DIGIT}+ {
+            yylval.values.value_num = atoi(yytext);
+            yylval.values.line_num = noOfLine;
+            return tNUM;
+         }
+
+W {
+    strcpy(yylval.values.name_str,yytext);
+    return tWED;
+  };
+F {
+    strcpy(yylval.values.name_str,yytext);
+    return tFRI;
+  };
+{DIGIT}{2}:{DIGIT}{2} { strcpy(yylval.values.name_str,yytext);
+                        yylval.values.line_num = noOfLine;
+                        return tTIME;
+                      }
+\t
+[ ]
+
+%%
